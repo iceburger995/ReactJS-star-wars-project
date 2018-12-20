@@ -12,20 +12,23 @@ export default class Character extends Component {
     }
 
     componentDidMount() {
-        const {id} = this.props;
+        const {id} = this.props.match.params;
 
         getPeopleById(id)
         .then(char => {
-            console.log(char);
             this.setState({
                 character: char,
                 loaded: true
             })
-        })
-    }
-    
+        });
+
+    }   
+
     render() {
+
         const {character, loaded} = this.state;
+
+        console.log(character);
 
         if(loaded) {
             return(
@@ -43,5 +46,5 @@ export default class Character extends Component {
 }
 
 Character.propTypes = {
-    id: PropTypes.number.isRequired
+    id: PropTypes.number
 }
