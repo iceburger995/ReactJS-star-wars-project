@@ -13,6 +13,7 @@ export default class Character extends Component {
             films: [],
             starships: [],
             species: [],
+            vehicles: [],
             loaded: false
         }
     }
@@ -53,6 +54,18 @@ export default class Character extends Component {
         })
     }
 
+    getVehicles(vehicles) {
+        vehicles.forEach(element => {
+            getDataByUrl(element)
+            .then(vehicle => {
+                vehicle.id = getIdFromUrl(vehicle.url);
+            this.setState({
+                vehicles: [...this.state.vehicles, vehicle]
+                })
+            })
+        })
+    }
+
     componentDidMount() {
         const {id} = this.props.match.params;
 
@@ -61,6 +74,7 @@ export default class Character extends Component {
             this.getFilms(char.films);
             this.getSpecies(char.species);
             this.getStarships(char.starships);
+            this.getVehicles(char.vehicles);
             this.setState({
                 character: char,
                 loaded: true
@@ -71,14 +85,9 @@ export default class Character extends Component {
 
     render() {
 
-        const {character, films, species, starships, loaded} = this.state;
+        const {character, films, species, starships, vehicles, loaded} = this.state;
 
         if(loaded) {
-
-            console.log(films);
-            console.log(character);
-            console.log(species);
-            console.log(starships);
 
             return(
                 <div>
@@ -120,6 +129,18 @@ export default class Character extends Component {
                         {starships.map((s,i) => (
                             <li key={i}>
                                 <Link to={'/starships/' + s.id}>{s.name}</Link>
+                            </li>
+                        ))}
+                    </ul>
+                    }
+                    </div>
+                    <div>
+                        <p>Vehicles owned by the character: </p>
+                        {!vehicles.length ? "None" :
+                    <ul>
+                        {vehicles.map((v,i) => (
+                            <li key={i}>
+                                <Link to={'/vehicles/' + v.id}>{v.name}</Link>
                             </li>
                         ))}
                     </ul>

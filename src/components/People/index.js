@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Character from './Character';
 import {getAllPeople} from '../../api/people';
 import {getDataByUrl} from '../../api/utils';
 import { getIdFromUrl } from '../../utilities/utilities';
