@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
-import {getAllStarships} from '../../api/starships';
+import {getAllPlanets} from '../../api/planets';
 import {getDataByUrl} from '../../api/utils';
 import { getIdFromUrl } from '../../utilities/utilities';
 import {Link} from "react-router-dom";
 
-export default class Starships extends Component {
+export default class Planets extends Component {
     constructor() {
         super();
         this.state = {
-            starships: {},
+            planets: {},
             nextPage: "",
             prevPage: "",
             selectedId: "",
@@ -21,14 +21,14 @@ export default class Starships extends Component {
 
     getNextPage() {
         getDataByUrl(this.state.nextPage)
-        .then((starships) => {
-            starships.results.forEach(starship => {
-                starship.id = getIdFromUrl(starship.url);
+        .then((planets) => {
+            planets.results.forEach(planet => {
+                planet.id = getIdFromUrl(planet.url);
             });
             this.setState({
-                starships,
-                nextPage: starships.next,
-                prevPage: starships.previous,
+                planets,
+                nextPage: planets.next,
+                prevPage: planets.previous,
                 selectedId: "",
                 loaded: true
             });
@@ -37,14 +37,14 @@ export default class Starships extends Component {
     
     getPrevPage() {
         getDataByUrl(this.state.prevPage)
-        .then((starships) => {
-            starships.results.forEach(starship => {
-                starship.id = getIdFromUrl(starship.url);
+        .then((planets) => {
+            planets.results.forEach(planet => {
+                planet.id = getIdFromUrl(planet.url);
             });
             this.setState({
-                starships,
-                nextPage: starships.next,
-                prevPage: starships.previous,
+                planets,
+                nextPage: planets.next,
+                prevPage: planets.previous,
                 selectedId: "",
                 loaded: true
             });
@@ -53,15 +53,15 @@ export default class Starships extends Component {
 
     componentDidMount() {
 
-        getAllStarships()
-            .then((starships) => {
-                starships.results.forEach(starship => {
-                    starship.id = getIdFromUrl(starship.url);
+        getAllPlanets()
+            .then((planets) => {
+                planets.results.forEach(planet => {
+                    planet.id = getIdFromUrl(planet.url);
                 });
             this.setState({
-                starships,
-                nextPage: starships.next,
-                prevPage: starships.previous,
+                planets,
+                nextPage: planets.next,
+                prevPage: planets.previous,
                 selectedId: "",
                 loaded: true
             });
@@ -70,9 +70,9 @@ export default class Starships extends Component {
     
     render() {
 
-        const {starships, nextPage, prevPage, selectedId, loaded} = this.state;
+        const {planets, nextPage, prevPage, selectedId, loaded} = this.state;
 
-        console.log(starships);
+        console.log(planets);
         
         if(loaded) {
 
@@ -80,10 +80,10 @@ export default class Starships extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                        {starships.results.map((s, i) => (
+                        {planets.results.map((p, i) => (
                                 <div key={i}>
-                                    <p>{s.name}</p>
-                                    <Link to={"/starship/" + s.id}>Details</Link>
+                                    <p>{p.name}</p>
+                                    <Link to={"/planet/" + p.id}>Details</Link>
                                 </div>
                                 ))}
                         </div>

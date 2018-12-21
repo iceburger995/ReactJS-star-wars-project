@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const planetsUrl = 'https://swapi.co/api/species/';
+const planetsUrl = 'https://swapi.co/api/planets/';
 
 export function getAllPlanets() {
     return axios.get(planetsUrl)

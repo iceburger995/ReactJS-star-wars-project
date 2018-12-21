@@ -12,6 +12,7 @@ export const Header = (props) => {
                     <li><Link to={"/species"} >Species</Link></li>
                     <li><Link to={"/starships"} >Starships</Link></li>
                     <li><Link to={"/vehicles"} >Vehicles</Link></li>
+                    <li><Link to={"/planets"} >Planets</Link></li>
                 </ul>
             </div>
         </nav>
